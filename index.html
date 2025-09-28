@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leul XO Business</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; background: #0a0a0f; color: #fff; overflow-x: hidden; }
+    canvas { display: block; position: absolute; top: 0; left: 0; z-index: -1; }
+    .glow-text { text-shadow: 0 0 10px #8b5cf6, 0 0 20px #a78bfa, 0 0 30px #c084fc; }
+    .glow-card:hover { box-shadow: 0 0 20px #8b5cf6; transform: scale(1.05); transition: 0.3s; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 w-full bg-black/70 backdrop-blur-lg flex items-center justify-between px-6 py-4 z-50">
+    <div class="flex items-center space-x-3">
+      <a href="https://t.me/LEULXO47_BUSINESS"><img src="/assets/photo_2025-09-13_15-11-14.jpg" alt="Logo" class="w-10 h-10 rounded-full" /></a>
+      <span class="text-2xl font-bold glow-text">Leul XO</span>
+    </div>
+    <ul class="flex space-x-8 text-lg">
+      <li><a href="#services" class="hover:text-purple-400">Services</a></li>
+      <li><a href="#impact" class="hover:text-purple-400">Impact</a></li>
+      <li><a href="#contact" class="hover:text-purple-400">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="h-screen flex flex-col items-center justify-center text-center relative">
+    <h1 class="text-6xl md:text-7xl font-bold glow-text">LEUL XO BUSINESS</h1>
+    <p class="mt-4 text-lg text-gray-300">Topup • TikTok • Telegram • Visa • Data • More</p>
+    <a href="#services" class="mt-8 px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-xl text-lg">Start Now</a>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-20 px-6 max-w-7xl mx-auto" style="cursor: pointer;">
+    <h2 class="text-4xl font-bold text-center mb-12 glow-text">Our Services</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+    <a href="pages/ffdiamond.html">
+      <div class="p-8 bg-gray-900 rounded-2xl glow-card text-center" >
+        <h3 class="text-2xl font-semibold mb-4">💎 Free Fire Diamonds</h3>
+        <p>Instant top-up at the best rates with secure payment.</p>
+      </div>
+    </a>
+    <a href="pages/tiktokcoin.html">
+      <div class="p-8 bg-gray-900 rounded-2xl glow-card text-center">
+        <h3 class="text-2xl font-semibold mb-4">🪙 TikTok Coins</h3>
+        <p>Buy TikTok coins, real followers, likes & premium packs.</p>
+      </div>
+    </a>
+    <a href="pages/telegram.html">
+      <div class="p-8 bg-gray-900 rounded-2xl glow-card text-center" onclick="contact">
+        <h3 class="text-2xl font-semibold mb-4">⭐ Telegram Premium</h3>
+        <p>Get Telegram Premium & Stars with instant delivery.</p>
+      </div>
+    </a>
+    <a href="pages/visacard.html">
+      <div class="p-8 bg-gray-900 rounded-2xl glow-card text-center" onclick="contact">
+        <h3 class="text-2xl font-semibold mb-4">💳 Visa Cards</h3>
+        <p>Prepaid and virtual Visa cards for global payments.</p>
+      </div>
+    </a>
+    <a href="#">
+      <div class="p-8 bg-gray-900 rounded-2xl glow-card text-center" onclick="contact">
+        <h3 class="text-2xl font-semibold mb-4">📶 Unlimited Data</h3>
+        <p>Affordable data bundles and unlimited internet packages.</p>
+      </div>
+    </a>
+    <a href="pages/magictv.html">
+      <div class="p-8 bg-gray-900 rounded-2xl glow-card text-center" onclick="contact">
+        <h3 class="text-2xl font-semibold mb-4">📺 Mag*c TV</h3>
+        <p>Streaming subscriptions with the best prices.</p>
+      </div>
+    </a>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section id="impact" class="py-20 bg-gradient-to-r from-purple-800 to-indigo-900 text-center">
+    <h2 class="text-4xl font-bold mb-12">Our Impact</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 max-w-6xl mx-auto">
+      <div>
+        <h3 class="text-5xl font-bold counter" data-target="5000">0</h3>
+        <p class="mt-2">Diamonds Delivered</p>
+      </div>
+      <div>
+        <h3 class="text-5xl font-bold counter" data-target="2000">0</h3>
+        <p class="mt-2">TikTok Coins Sold</p>
+      </div>
+      <div>
+        <h3 class="text-5xl font-bold counter" data-target="1500">0</h3>
+        <p class="mt-2">Happy Customers</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 px-6 text-center">
+    <h2 class="text-4xl font-bold mb-6 glow-text">Get in Touch</h2>
+    <p class="mb-6 text-gray-400">For fast response, reach out via Telegram.</p>
+    <a href="https://t.me/LEULXO47_BUSINESS" target="_blank" class="px-8 py-3 bg-purple-600 hover:bg-purple-700 rounded-xl text-lg">Message Us</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black text-gray-400 py-6 text-center">
+    <p>© <span id="year"></span> Leul XO Business. All rights reserved.</p>
+  </footer>
+
+  <!-- Three.js Diamond + Particles -->
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({alpha:true, antialias:true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const diamondGeometry = new THREE.OctahedronGeometry(2, 2);
+    const diamondMaterial = new THREE.MeshPhongMaterial({
+      color: 0x99ccff,
+      transparent: true,
+      opacity: 0.7,
+      shininess: 200,
+      specular: 0xffffff,
+      side: THREE.DoubleSide
+    });
+    const diamond = new THREE.Mesh(diamondGeometry, diamondMaterial);
+    scene.add(diamond);
+
+    const light1 = new THREE.PointLight(0x9b5cf6, 2, 50);
+    light1.position.set(5,5,5);
+    scene.add(light1);
+
+    const light2 = new THREE.PointLight(0x00ffff, 2, 50);
+    light2.position.set(-5,-5,5);
+    scene.add(light2);
+
+    const ambient = new THREE.AmbientLight(0x404040, 1.5);
+    scene.add(ambient);
+
+    camera.position.z = 7;
+
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 500;
+    const posArray = new Float32Array(particlesCount * 3);
+    for (let i=0; i<particlesCount*3; i++) {
+      posArray[i] = (Math.random() - 0.5) * 50;
+    }
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    const particlesMaterial = new THREE.PointsMaterial({color:0x8b5cf6, size:0.05});
+    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particles);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      diamond.rotation.x += 0.01;
+      diamond.rotation.y += 0.015;
+      particles.rotation.y += 0.001;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', ()=>{
+      camera.aspect = window.innerWidth/window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+      const update = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const increment = target / 200;
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(update, 20);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      update();
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

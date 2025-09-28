@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leul XO · Insane Telegram Premium Topup</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg1: #05040d;
+  --bg2: #0f0c29;
+  --accent1: #ff00cc;
+  --accent2: #00ffee;
+  --title-gradient: linear-gradient(135deg, #ff0080, #00ffff, #ff00ff);
+  --muted: #98a0b3;
+  --card-w: 380px;
+  --card-h: 240px;
+}
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.8), var(--bg2)),
+              linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
+  background-blend-mode: overlay;
+  color: white;
+  overflow-x: hidden;
+}
+.container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 20px;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+}
+.brand h1 {
+  font-size: 28px;
+  background: var(--title-gradient);
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+@keyframes titleGlow {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.4); }
+}
+nav button {
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 20px var(--accent1), 0 0 40px var(--accent2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+nav button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px var(--accent1), 0 0 50px var(--accent2);
+}
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 500px;
+  gap: 50px;
+  align-items: center;
+}
+.h-title {
+  font-size: 48px;
+  line-height: 1.1;
+  background: var(--title-gradient);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.h-sub {
+  color: var(--muted);
+  margin-top: 10px;
+  font-size: 18px;
+}
+.controls {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.controls button {
+  background: linear-gradient(90deg, var(--accent1), var(--accent2));
+  border: none;
+  padding: 16px;
+  border-radius: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+.controls button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px var(--accent1), 0 10px 50px var(--accent2);
+}
+.card {
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: 20px;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg') no-repeat center center / contain;
+  box-shadow: 0 0 30px var(--accent1), 0 0 60px var(--accent2);
+  animation: float 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotateY(0deg); }
+  50% { transform: translateY(-12px) rotateY(20deg); }
+}
+footer {
+  margin-top: 40px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<div class="brand"><h1>Leul XO · Telegram Premium Topup</h1></div>
+<nav><button onclick="redirectOrder()">Order Now</button></nav>
+</header>
+<main class="hero">
+<section>
+<h2 class="h-title">Upgrade to Telegram Premium</h2>
+<p class="h-sub">Unlock exclusive features, faster downloads, and premium customization for Telegram. Choose your plan below.</p>
+<div class="controls">
+
+<button onclick="redirectOrder('1 Month')">1 Month - 600 ETB</button>
+<button onclick="redirectOrder('6 Months')">6 Months - 2850 ETB</button>
+<button onclick="redirectOrder('3 Month')">3 Months - 2200 ETB</button>
+<button onclick="redirectOrder('12 Months')">12 Months - 5000 ETB</button>
+</div>
+</section>
+<aside>
+<div class="card"></div>
+</aside>
+</main>
+<footer>© Leul XO · All Rights Reserved</footer>
+</div>
+<script>
+function redirectOrder(plan){
+  if(confirm(`You selected ${plan}. Proceed to order?`)){
+    window.open('https://t.me/LeulXO47','_blank');
+  }
+}
+</script>
+</body>
+</html>

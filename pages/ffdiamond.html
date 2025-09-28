@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leul XO Diamond Topup</title>
+<style>
+    /* Basic reset */
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', sans-serif; }
+
+    /* 3D animated background */
+    body {
+        height: 100vh;
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        perspective: 1000px;
+        animation: bgAnimation 20s linear infinite alternate;
+    }
+
+    @keyframes bgAnimation {
+        0% {background-position:0% 50%;}
+        50% {background-position:100% 50%;}
+        100% {background-position:0% 50%;}
+    }
+
+    /* Mirror container / glassmorphism */
+    .container {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(15px);
+        border: 2px solid rgba(255,255,255,0.2);
+        border-radius: 20px;
+        padding: 40px;
+        width: 90%;
+        max-width: 500px;
+        text-align: center;
+        color: #fff;
+        box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        color: #ffcc00;
+    }
+
+    .banner {
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        animation: bannerGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes bannerGlow {
+        0% { text-shadow: 0 0 5px #ffcc00; }
+        100% { text-shadow: 0 0 20px #ffcc00; }
+    }
+
+    /* Price list */
+    .price-list {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    .price-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 15px;
+        margin-bottom: 10px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .price-item:hover {
+        background: rgba(255,255,255,0.2);
+        transform: translateY(-3px);
+    }
+
+    /* Order form */
+    .order-form {
+        display: none;
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    .order-form input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        border: none;
+    }
+
+    .order-form button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        background: #ffcc00;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .order-form button:hover {
+        background: #ffd633;
+    }
+
+    /* Confirmation popup */
+    #finishModal {
+        display:none;
+        position:fixed;
+        top:0; left:0;
+        width:100%; height:100%;
+        background:rgba(0,0,0,0.7);
+        justify-content:center;
+        align-items:center;
+    }
+
+    #finishModal .modal-content {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(15px);
+        border-radius: 15px;
+        padding: 30px;
+        text-align: center;
+        max-width: 300px;
+        color: #fff;
+    }
+
+    #finishModal button {
+        padding:10px 15px;
+        margin:5px;
+        border:none;
+        border-radius:10px;
+        cursor:pointer;
+        font-weight:bold;
+    }
+
+    #accBtn { background:#ffcc00; color:#000; }
+    #botBtn { background:#00ffcc; color:#000; }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Leul XO Diamond Topup</h1>
+    <div class="banner">🌼 እስከ መስከረም 3 የአዲስ አመት ቅናሽ የሚቆይ ቅናሽ 🌼</div>
+
+    <div class="price-list">
+        <div class="price-item" data-diamond="110" data-price="160">110💎 - 160 ብር 💬</div>
+        <div class="price-item" data-diamond="231" data-price="325">231💎 - 325 ብር 💬</div>
+        <div class="price-item" data-diamond="331" data-price="480">331💎 - 480 ብር 💬</div>
+        <div class="price-item" data-diamond="583" data-price="785">583💎 - 785 ብር 💬</div>
+        <div class="price-item" data-diamond="1188" data-price="1560">1188💎 - 1560 ብር 💬</div>
+        <div class="price-item" data-diamond="2420" data-price="3110">2420💎 - 3110 ብር 💬</div>
+        <div class="price-item" data-diamond="450" data-price="350">🌟 Weekly 450💎 - 350 ብር</div>
+        <div class="price-item" data-diamond="2600" data-price="1700">🌟 Monthly 2600💎 - 1700 ብር</div>
+        <div class="price-item" data-diamond="1270" data-price="700">🌟 Level Up 1270💎 - 700 ብር</div>
+    </div>
+
+    <div class="order-form">
+        <label>Selected Package: <span id="selected-package"></span></label>
+        <input type="text" id="uid" placeholder="Enter your Free Fire UID">
+        <button id="confirm-btn">Submit</button>
+    </div>
+
+</div>
+
+<!-- Popup modal for choosing finish option -->
+<div id="finishModal">
+    <div class="modal-content">
+        <p>Finish with Leul XO Account or Leul XO Bot?</p>
+        <button id="accBtn">Leul XO Account</button>
+        <button id="botBtn">Leul XO Bot</button>
+    </div>
+</div>
+
+<script>
+    const priceItems = document.querySelectorAll('.price-item');
+    const orderForm = document.querySelector('.order-form');
+    const selectedPackage = document.getElementById('selected-package');
+    const confirmBtn = document.getElementById('confirm-btn');
+    const finishModal = document.getElementById('finishModal');
+
+    priceItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const diamond = item.getAttribute('data-diamond');
+            const price = item.getAttribute('data-price');
+            selectedPackage.textContent = `${diamond}💎 - ${price} ብር`;
+            orderForm.style.display = 'block';
+        });
+    });
+
+    confirmBtn.addEventListener('click', () => {
+        const uid = document.getElementById('uid').value.trim();
+        if(uid === '') {
+            alert('Please enter your Free Fire UID!');
+            return;
+        }
+        // Show the popup modal
+        finishModal.style.display = 'flex';
+        console.log(`Order Submitted: ${selectedPackage.textContent}, UID: ${uid}`);
+    });
+
+    // Redirect buttons
+    document.getElementById('accBtn').addEventListener('click', () => {
+        // Replace with actual TG account link
+        window.location.href = 'https://t.me/LeulXO47';
+    });
+
+    document.getElementById('botBtn').addEventListener('click', () => {
+
+        window.location.href = 'https://t.me/leulxobot';
+    });
+</script>
+
+</body>
+</html>

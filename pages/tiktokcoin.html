@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Leul XO — TikTok Coin Top-Up (Insane UI)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#060018;
+    --bg2:#08102a;
+    --pink:#ff2fa6;
+    --cyan:#3ef3ff;
+    --neon1: rgba(255,47,166,0.12);
+    --neon2: rgba(62,243,255,0.08);
+    --glass: rgba(255,255,255,0.03);
+    --muted: #9fb1c6;
+    --card-radius:20px;
+    --coin-size:220px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:
+    radial-gradient(800px 400px at 10% 12%, rgba(255,47,166,0.04), transparent 8%),
+    radial-gradient(600px 300px at 90% 80%, rgba(62,243,255,0.025), transparent 8%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));color:#eaf6ff;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .page{max-width:1150px;margin:28px auto;padding:28px}
+
+  /* header */
+  header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .brand{display:flex;gap:12px;align-items:center}
+  .logo{width:76px;height:76px;border-radius:18px;display:grid;place-items:center;font-weight:900;
+         background:conic-gradient(from 150deg, var(--pink), var(--cyan)); box-shadow:0 20px 80px rgba(0,0,0,0.6)}
+  .brand h1{margin:0;font-size:18px}
+  .brand p{margin:0;color:var(--muted);font-size:12px}
+  .nav{display:flex;gap:10px;align-items:center}
+  .btn-primary{background:linear-gradient(90deg,var(--pink),var(--cyan));border:none;padding:10px 16px;border-radius:12px;font-weight:800;color:#061025;cursor:pointer;box-shadow:0 10px 40px rgba(20,10,40,0.55)}
+  .link{padding:8px 12px;border-radius:10px;color:rgba(255,255,255,0.9);font-weight:600}
+
+  /* hero grid */
+  .hero{display:grid;grid-template-columns:1fr 480px;gap:36px;align-items:center;margin-top:18px}
+  @media (max-width:980px){.hero{grid-template-columns:1fr}.hero .right{order:-1}}
+
+  .headline{font-size:42px;line-height:1.03;margin:0}
+  .sub{color:var(--muted);margin-top:12px;max-width:620px}
+
+  /* coin stage */
+  .right{display:flex;flex-direction:column;align-items:center;gap:14px}
+  .stage{width:var(--coin-size);height:var(--coin-size);perspective:1400px;position:relative}
+  /* coin container */ 
+  .coin-wrap{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 320ms}
+  .coin-wrap:hover{transform:translateY(-8px) rotateZ(-4deg)}
+  /* coin */
+  .coin{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:var(--coin-size);height:var(--coin-size);border-radius:50%;transform-style:preserve-3d;animation:spin 6s linear infinite}
+  @keyframes spin{from{transform:translate(-50%,-50%) rotateY(0deg)}to{transform:translate(-50%,-50%) rotateY(360deg)}}
+
+  /* coin faces: front/back */
+  .coin-face{
+    position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;
+    backface-visibility:hidden;overflow:hidden;box-shadow:0 20px 60px rgba(2,6,23,0.6), inset 0 -10px 40px rgba(255,255,255,0.02);
+  }
+  .coin-front{background:radial-gradient(circle at 30% 20%, rgba(255,255,255,0.03), transparent 10%), linear-gradient(180deg,#0b1220,#081026)}
+  .coin-back{transform:rotateY(180deg);background:linear-gradient(180deg,#071322,#031226)}
+
+  /* edge / rim effect using pseudo-element ring */
+  .coin-edge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:calc(var(--coin-size) + 18px);height:calc(var(--coin-size) + 18px);border-radius:50%;pointer-events:none;filter:drop-shadow(0 10px 30px rgba(0,0,0,0.7))}
+  .coin-edge:before{
+    content:"";position:absolute;inset:0;border-radius:50%;padding:6px;background:
+      conic-gradient(from 200deg, rgba(255,47,166,0.28), rgba(62,243,255,0.22), transparent 40% );
+    -webkit-mask: radial-gradient(farthest-side, transparent 60%, black 61%);
+    mask: radial-gradient(farthest-side, transparent 60%, black 61%);
+    transform:rotateX(60deg) translateZ(-6px);
+    opacity:0.95;
+    mix-blend-mode:screen;
+  }
+
+  /* front branding (TikTok-like) */
+  .tiktok-mark{width:84px;height:84px;border-radius:18px;display:grid;place-items:center;background:
+    linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));font-size:40px;filter:drop-shadow(0 12px 40px rgba(124,58,237,0.2))}
+  .t-mark-small{display:flex;gap:6px;align-items:center}
+  .t-mark-small .t-p{font-size:42px;transform:translateZ(20px);mix-blend-mode:screen;filter:drop-shadow(0 12px 30px rgba(255,47,166,0.25))}
+  .t-mark-small .t-p .p1{color:var(--pink);transform:translateX(-6px)}
+  .t-mark-small .t-p .p2{color:var(--cyan);transform:translateX(6px) scale(0.95);opacity:0.95}
+  .t-caption{font-size:12px;color:var(--muted);margin-top:6px}
+
+  /* glow rings under coin */
+  .glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:360px;height:360px;border-radius:50%;filter:blur(28px);opacity:0.18;background:
+    radial-gradient(circle at 30% 30%, var(--pink), transparent 20%),
+    radial-gradient(circle at 70% 70%, var(--cyan), transparent 18%)}
+
+  /* particles in right area */
+  .particles{position:absolute;inset:0;pointer-events:none}
+  .particles i{position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.06);box-shadow:0 8px 26px rgba(255,47,166,0.12),0 8px 26px rgba(62,243,255,0.08);opacity:0.9}
+
+  /* left content: pricing cards */
+  .bundles{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:20px}
+  @media (max-width:720px){.bundles{grid-template-columns:1fr}}
+  .bundle{padding:16px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform 220ms,box-shadow 220ms;display:flex;flex-direction:column;gap:10px}
+  .bundle:hover{transform:translateY(-8px);box-shadow:0 18px 60px rgba(10,6,30,0.6)}
+  .bundle .price{font-size:18px;font-weight:800}
+  .bundle .coins{font-size:24px;font-weight:900;color:#fff}
+
+  /* buy button */
+  .buy-row{display:flex;gap:10px;align-items:center;margin-top:12px}
+  .btn-buy{flex:1;padding:12px;border-radius:12px;border:none;background:linear-gradient(90deg,var(--pink),var(--cyan));color:#071026;font-weight:900;cursor:pointer;box-shadow:0 12px 40px rgba(20,8,40,0.6)}
+  .btn-ghost{padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--muted);cursor:pointer}
+
+  /* modal */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;place-items:center;z-index:90}
+  .modal{width:94%;max-width:720px;background:linear-gradient(180deg,#071026,#02121a);border-radius:16px;padding:20px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 30px 100px rgba(2,6,23,0.8);transform:translateY(20px);opacity:0;transition:all 240ms ease}
+  .modal.show{transform:translateY(0);opacity:1}
+  .choices{display:flex;gap:12px}
+  .choice{flex:1;padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform 160ms}
+  .choice:hover{transform:translateY(-6px)}
+  .choice h4{margin:0}
+  .choice p{margin:0;color:var(--muted);font-size:13px}
+
+  footer{margin-top:28px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap}
+
+  /* small responsiveness */
+  @media (max-width:520px){
+    :root{--coin-size:180px}
+    .headline{font-size:28px}
+    .brand h1{font-size:16px}
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="logo">LX</div>
+        <div>
+          <h1>Leul XO — TikTok Coin Topup</h1>
+          <p>Fast & trusted top-ups — Ethiopia & global</p>
+        </div>
+      </div>
+      <nav class="nav">
+        <div class="link">Bundles</div>
+        <div class="link">How it works</div>
+        <button class="btn-primary" onclick="openModal()">Buy Now</button>
+      </nav>
+    </header>
+
+    <main class="hero">
+      <section>
+        <h2 class="headline">Top up TikTok Coins with <span style="background:linear-gradient(90deg,var(--pink),var(--cyan));-webkit-background-clip:text;color:transparent">Leul XO</span></h2>
+        <p class="sub">Instant coin bundles for creators & viewers. Choose a bundle, generate a transaction, and finish with Leul XO’s account or bot — secure and fast.</p>
+
+        <div class="bundles" id="bundles">
+          <div class="bundle" data-coins="70" data-price="1.29">
+            <div class="coins">70 Coins</div>
+            <div class="price">USD <strong>$1.29</strong> • ≈ ETB <span class="etb">70</span></div>
+            <div style="margin-top:10px">Ideal for quick gifts.</div>
+            <div class="buy-row">
+              <button class="btn-buy" onclick="selectBundle(this)">Buy</button>
+              <button class="btn-ghost" onclick="previewBundle(this)">Preview</button>
+            </div>
+          </div>
+
+          <div class="bundle" data-coins="350" data-price="6.49">
+            <div class="coins">350 Coins</div>
+            <div class="price">USD <strong>$6.49</strong> • ≈ ETB <span class="etb">350</span></div>
+            <div style="margin-top:10px">Popular: great value.</div>
+            <div class="buy-row">
+              <button class="btn-buy" onclick="selectBundle(this)">Buy</button>
+              <button class="btn-ghost" onclick="previewBundle(this)">Preview</button>
+            </div>
+          </div>
+
+          <div class="bundle" data-coins="700" data-price="12.99">
+            <div class="coins">700 Coins</div>
+            <div class="price">USD <strong>$12.99</strong> • ≈ ETB <span class="etb">700</span></div>
+            <div style="margin-top:10px">For heavy givers & creators.</div>
+            <div class="buy-row">
+              <button class="btn-buy" onclick="selectBundle(this)">Buy</button>
+              <button class="btn-ghost" onclick="previewBundle(this)">Preview</button>
+            </div>
+          </div>
+
+          <div class="bundle" data-coins="1400" data-price="24.99">
+            <div class="coins">1400 Coins</div>
+            <div class="price">USD <strong>$24.99</strong> • ≈ ETB <span class="etb">1400</span></div>
+            <div style="margin-top:10px">Best for streamers & sponsorships.</div>
+            <div class="buy-row">
+              <button class="btn-buy" onclick="selectBundle(this)">Buy</button>
+              <button class="btn-ghost" onclick="previewBundle(this)">Preview</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;color:var(--muted);font-size:13px">
+          Press <strong>B</strong> to open the buy modal. Prices approximate ETB for display only.
+        </div>
+      </section>
+
+      <aside class="right">
+        <div class="stage" aria-hidden="true">
+          <div class="glow"></div>
+          <div class="coin-wrap" id="coinWrap">
+            <div class="coin" id="coin">
+              <div class="coin-face coin-front">
+                <div style="text-align:center">
+                  <div class="tiktok-mark">
+                    <!-- stylized TikTok-like mark built using colored layers -->
+                    <div class="t-mark-small">
+                      <div class="t-p">
+                        <span class="p1">♪</span>
+                        <span class="p2">♪</span>
+                      </div>
+                    </div>
+                    <div class="t-caption" style="margin-top:6px">TikTok Coin</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="coin-edge" aria-hidden="true"></div>
+
+              <div class="coin-face coin-back">
+                <div style="text-align:center">
+                  <div style="font-size:18px;font-weight:900">Leul XO</div>
+                  <div style="margin-top:8px;color:var(--muted);font-size:13px">Trusted top-ups</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="particles" id="particles"></div>
+        </div>
+
+        <div style="width:100%;max-width:360px;text-align:center;color:var(--muted);font-size:13px;margin-top:6px">
+          3D disc rotation, glowing rim, realistic layered depth.
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <div>© Leul XO — TikTok Coins • Built with love</div>
+      <div style="color:var(--muted)">Telegram: @LeulXO47 • Bot: @leulxobot</div>
+    </footer>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div id="modalBox" class="modal" role="document" aria-labelledby="modalTitle">
+      <h3 id="modalTitle" style="margin:0 0 8px 0">Complete your Top-Up</h3>
+      <p style="margin:0 0 12px 0;color:var(--muted)">Choose how you'd like to finish the top-up — direct to Leul's account or via the bot.</p>
+
+      <div class="choices">
+        <div class="choice" id="accountChoice" tabindex="0" role="button" onclick="redirectAccount()">
+          <h4>Leul XO Topup Account (@LeulXO47)</h4>
+          <p>Chat directly with Leul to confirm & pay. Fast person-to-person support.</p>
+        </div>
+
+        <div class="choice" id="botChoice" tabindex="0" role="button" onclick="redirectBot()">
+          <h4>Leul XO Bot (@leulxobot)</h4>
+          <p>Automated option — start the bot and send the order payload. Great for hands-off provisioning.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;margin-top:16px;gap:10px">
+        <button class="btn-ghost" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Config
+  const TG_ACCOUNT = 'LeulXO47';
+  const TG_BOT = 'leulxobot';
+
+  // Setup small dynamic ETB approx (fake conversion for display)
+  function updateEtb() {
+    // fake rate: 1 USD = 100 ETB (demo). Replace with real rate in production.
+    const rate = 100;
+    document.querySelectorAll('.bundle').forEach(b=>{
+      const usd = parseFloat(b.getAttribute('data-price'));
+      const etb = Math.round(usd * rate);
+      b.querySelector('.etb').textContent = etb;
+    });
+  }
+  updateEtb();
+
+  // Particles
+  (function makeParticles(){
+    const root = document.getElementById('particles');
+    for(let i=0;i<18;i++){
+      const el = document.createElement('i');
+      el.style.left = Math.random()*100 + '%';
+      el.style.top = Math.random()*100 + '%';
+      el.style.transform = 'scale(' + (0.4 + Math.random()*1.2) + ')';
+      el.style.opacity = (0.12 + Math.random()*0.6);
+      root.appendChild(el);
+    }
+  })();
+
+  // Keyboard shortcut to open modal
+  document.addEventListener('keydown', (e)=>{
+    if(e.key.toLowerCase()==='b') openModal();
+  });
+
+  // Modal control
+  const modal = document.getElementById('modal');
+  const modalBox = document.getElementById('modalBox');
+  function openModal(){
+    modal.style.display = 'grid';
+    modal.setAttribute('aria-hidden','false');
+    setTimeout(()=> modalBox.classList.add('show'), 20);
+  }
+  function closeModal(){
+    modalBox.classList.remove('show');
+    setTimeout(()=> { modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }, 220);
+  }
+
+  // Current selection
+  let selected = {coins:1400,price:24.99};
+
+  // On "Buy" from bundles
+  function selectBundle(btn){
+    const b = btn.closest('.bundle');
+    selected.coins = parseInt(b.getAttribute('data-coins'));
+    selected.price = parseFloat(b.getAttribute('data-price'));
+    // visual feedback: briefly pulse
+    b.animate([{transform:'scale(1)'},{transform:'scale(1.03)'},{transform:'scale(1)'}],{duration:260});
+    // generate a demo txn id
+    selected.tx = 'TX' + Math.floor(100000 + Math.random()*899999);
+    // open modal to choose finish method
+    setTimeout(()=> openModal(), 160);
+  }
+
+  function previewBundle(btn){
+    const b = btn.closest('.bundle');
+    const c = b.getAttribute('data-coins'), p = b.getAttribute('data-price');
+    alert(`Preview\n\nBundle: ${c} coins\nPrice: $${p}\n\nThis is a demo preview.`);
+  }
+
+  // Redirect helpers: create prefilled messages
+  function escapeText(s){ return encodeURIComponent(String(s)).replace(/'/g,"%27").replace(/"/g,"%22"); }
+
+  function redirectAccount(){
+    // prefill Telegram chat text
+    const text = `TikTok Coin Top-up Order
+Type: ${selected.coins} coins
+Price (USD): $${selected.price}
+TX: ${selected.tx || 'N/A'}
+Please contact me with instructions to complete the top-up.`;
+    const url = `https://t.me/${TG_ACCOUNT}?text=${escapeText(text)}`;
+    window.open(url, '_blank');
+  }
+
+  function redirectBot(){
+    // Build a compact start payload
+    const payload = `ttorder|coins:${selected.coins}|price:${selected.price}|tx:${selected.tx || ''}`;
+    const url = `https://t.me/${TG_BOT}?start=${encodeURIComponent(payload)}`;
+    window.open(url, '_blank');
+  }
+
+  // Clicking outside modal closes
+  modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+
+  // Accessibility for choices (Enter)
+  document.getElementById('accountChoice').addEventListener('keydown', (e)=>{ if(e.key==='Enter') redirectAccount(); });
+  document.getElementById('botChoice').addEventListener('keydown', (e)=>{ if(e.key==='Enter') redirectBot(); });
+
+  // Small console note
+  console.info('TikTok topup demo loaded. Targets:', TG_ACCOUNT, TG_BOT);
+</script>
+</body>
+</html>
